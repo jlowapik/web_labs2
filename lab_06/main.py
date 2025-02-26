@@ -1,24 +1,11 @@
 
 def task_01():
-    txt = open('input_6.txt')
-    n = txt.readlines()
 
     def condition(a):
-        first = second = 0
-        for i in a:
-            if i == 'A':
-                first = 1
-            elif i == 'B':
-                first = 2
-            elif i == 'C':
-                first = 3
-            if i == 'X':
-                second = 1
-            elif i == 'Y':
-                second = 2
-            elif i == 'Z':
-                second = 3
-
+        my_dict = {'A': 1, 'X': 1, 'B': 2, 'Y': 2, 'C': 3, 'Z': 3}
+        one, two = a.split()
+        first = my_dict.get(one)
+        second = my_dict.get(two)
 
         if second - first == 0:
             return 'draw', second
@@ -27,20 +14,16 @@ def task_01():
         elif second - first == 2 or -1:
             return 'lose', second
 
-
-
-    def main(n):
+    def main():
+        txt = open('input_6.txt')
+        n = txt.readlines()
         total_sum = 0
+        result = {'win': 6, 'draw': 3, 'lose': 0}
         for i in n:
             res, second = condition(i)
-            if res == 'win':
-                total_sum += (6 + second)
-            elif res == 'draw':
-                total_sum += (3 + second)
-            elif res == 'lose':
-                total_sum += second
+            total_sum += (result.get(res) + second)
         print(total_sum)
-    main(n)
+    main()
 
 task_01()
 #18239
