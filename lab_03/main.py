@@ -1,8 +1,8 @@
 
 txt = open('input_3.txt')
 n = (txt.readlines())
-list_count = []
 def task1(a):
+    list_count = []
     def nums(a):
         numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
         lis = []
@@ -19,6 +19,7 @@ def task1(a):
     return sum(int_list_count)
 
 def task2(a):
+    list_count = []
     def nums(a):
         numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
         j = a.replace('zero', '0')
@@ -43,7 +44,9 @@ def task2(a):
         list_count.append(nums(i))
         int_list_count = [int(h) for h in list_count]
     return sum(int_list_count)
+
+
 print(task1(n))
-#54242
+#55538
 print(task2(n))
-#109780
+#54242
