@@ -1,41 +1,34 @@
-with open('input_4.txt', 'r') as file:
-    data = file.readlines()
+from collections import defaultdict
 
+def task_1():
+    txt = open('input_4.txt')
+    n = txt.readlines()
 
-def check_dir(dir_name):
-    final_res = 0
+    sizes = defaultdict(int)
+    stack = []
+
+    for i in n:
+        parts = i.split()
+        if parts[0] == '$':
+            if parts[1] == 'cd':
+                if parts[2] == '/':
+                    stack = ['/']
+                elif parts[2] == '..':
+                    stack.pop()
+                else:
+                    stack.append(parts[2])
+        elif parts[0] == 'dir':
+            continue
+        else:
+            size = int(parts[0])
+            for j in range(len(stack)):
+                sizes['/'.join(stack[: j + 1])] += size
     res = 0
-    count = 0
-
-    start_index = data.index("$ cd " + dir_name + "\n")
-    data[start_index] = "$"
-
-    for i in range(start_index + 2, len(data)):
-
-        symbol = data[i].split()
-
-        if (symbol[0] == "$"):
-            break
-
-        if (symbol[0] == "dir"):
-            count1, final_res1, res1 = check_dir(symbol[1])
-            res += res1
-            final_res += final_res1
-            count += count1
-
-        if (symbol[0].isdigit()):
-            res += int(symbol[0])
-
-    print(res, dir_name)
-
-    if (res <= 100000):
-        final_res += res
-        count += 1
-    return count, final_res, res
+    for k in sizes.values():
+        if k < 100000:
+            res += k
+    return res
 
 
-count, final_res, res = check_dir("/")
-
-
-print("final res: ", final_res)
-
+print(task_1())
+#1453349
